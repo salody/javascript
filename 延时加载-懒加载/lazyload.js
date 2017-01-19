@@ -9,22 +9,29 @@ function getElementTop(ele) {
     return top;
 }
 
-var lazyload = function() {
-    var seeHeight = document.documentElement.clientHeight; //可见区域高度
-    var scrollTop = document.documentElement.scrollTop || document.body.scrollTop; //滚动条距离顶部高度
-    for (var i = n; i < num; i++) {
-        if (getElementTop(imgs[i]) < seeHeight + scrollTop) {
-            if (imgs[i].getAttribute("src") == "loading.gif") {
-                imgs[i].src = imgs[i].dataset.src;
+var lazyload = (function() {
+    var n = 0;// 存储图片加载到的位置，防止从第一张开始遍历
+    return {
+        load: function (elms) {
+            var num = elms.length;
+            var seeHeight = document.documentElement.clientHeight; //可见区域高度
+            var scrollTop = document.documentElement.scrollTop || document.body.scrollTop; //滚动条距离顶部高度
+            for (var i = n; i < num; i++) {
+                if (getElementTop(elms[i]) < seeHeight + scrollTop) {
+                    if (elms[i].getAttribute("src") == "loading.gif") {
+                        elms[i].src = elms[i].dataset.src;
+                    }
+                    n = i + 1;
+                }
             }
-            n = i + 1;
         }
     }
+})()
+
+var imgs = document.querySelectorAll('img'); 
+
+lazyload.load(imgs);
+
+window.onscroll = function() {
+    lazyload.load(imgs);
 }
-
-var imgs = document.querySelectorAll('img');
-var num = imgs.length;
-var n = 0; // 存储图片加载到的位置，防止从第一张开始遍历
-lazyload();
-window.onscroll = lazyload;
-
