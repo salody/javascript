@@ -26,7 +26,7 @@ var lazyload = (function() {
             }
         }
     }
-})()
+})();
 
 var imgs = document.querySelectorAll('img'); 
 
@@ -34,4 +34,4 @@ lazyload.load(imgs);
 
 window.onscroll = function() {
     lazyload.load(imgs);
-}
+};
