@@ -1,7 +1,9 @@
 <component name="ProjectDictionaryState">
   <dictionary name="Administrator">
     <words>
+      <w>onload</w>
       <w>onreadystatechange</w>
+      <w>onscroll</w>
     </words>
   </dictionary>
 </component>
